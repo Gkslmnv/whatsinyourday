@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What's In Your Day?</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #e6f7ff);
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+    .banner {
+      background-color: #ff8a00;
+      background-image: linear-gradient(315deg, #ff8a00 0%, #e52e71 74%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+    .language-selector {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      gap: 8px;
+    }
+    .language-selector button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0.1rem 0.3rem;
+      line-height: 1;
+    }
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    button {
+      padding: 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #ff758c, #ff7eb3);
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s, background-color 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      background-color: #ff5e88;
+    }
+    .output {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #222;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="language-selector">
+    <button onclick="setLanguage('tr')" title="Türkçe">🇹🇷</button>
+    <button onclick="setLanguage('en')" title="English">🇺🇸</button>
+  </div>
+
+  <div class="banner">
+    <h1 id="title" style="color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);">What's In Your Day?</h1>
+    <p id="subtitle">Click a button below and get a surprise tailored to your day!</p>
+  </div>
+
+  <div class="button-grid">
+    <button onclick="showRandom('watch')" id="btn-watch">🎬 What to Watch</button>
+    <button onclick="showRandom('say')" id="btn-say">💬 Need Motivation?</button>
+    <button onclick="showRandom('brain')" id="btn-brain">🧠 Brain Teaser</button>
+    <button onclick="showRandom('learn')" id="btn-learn">📖 What to Learn</button>
+    <button onclick="showRandom('fortune')" id="btn-fortune">🔮 Your Daily Fortune</button>
+    <button onclick="showRandom('song')" id="btn-song">🎵 New Song</button>
+  </div>
+  <div class="output" id="output"></div>
+
+  <script>
+    const content = {
+      watch: [
+        "Inception (2010) - IMDb: 8.8 - Genre: Sci-Fi, Thriller",
+        "Parasite (2019) - IMDb: 8.6 - Genre: Drama, Thriller",
+        "Interstellar (2014) - IMDb: 8.6 - Genre: Adventure, Drama, Sci-Fi",
+        "Whiplash (2014) - IMDb: 8.5 - Genre: Drama, Music",
+        "The Shawshank Redemption (1994) - IMDb: 9.3 - Genre: Drama",
+        "The Godfather (1972) - IMDb: 9.2 - Genre: Crime, Drama"
+      ],
+      say: {
+        tr: [
+          "'Bugün başlamak için harika bir gün.'",
+          "'Küçük adımlar da ilerlemektir.'",
+          "'Her sabah yeni bir şans demektir.'",
+          "'Yavaş da olsa, durmadığın sürece ilerliyorsun.'",
+          "'Hayallerin seni korkutmuyorsa yeterince büyük değiller demektir.'"
+        ],
+        en: [
+          "'Today is a great day to start something new.'",
+          "'Small steps still move you forward.'",
+          "'Every morning is a new chance.'",
+          "'As long as you don’t stop, you're moving.'",
+          "'If your dreams don’t scare you, they're not big enough.'"
+        ]
+      },
+      brain: {
+        tr: [
+          "Bir adam bara girer, içki sipariş eder ve dışarı çıkar çıkmaz ölür. Neden?",
+          "İnsanlarla dolu bir tekne görüyorsun ama teknede tek bir kişi yok. Nasıl olur?",
+          "Hangisi daha ağırdır: 1kg çelik mi, 1kg tüy mü?"
+        ],
+        en: [
+          "A man walks into a bar and orders a drink. He leaves and dies. Why?",
+          "You see a boat filled with people, but there isn’t a single person on board. How?",
+          "Which is heavier: 1kg of steel or 1kg of feathers?"
+        ]
+      },
+      learn: {
+        tr: [
+          "Ahtapotların 3 kalbi ve mavi kanı vardır.",
+          "Eyfel Kulesi yaz sıcağında yaklaşık 15 cm uzar.",
+          "Muzlar potasyum-40 nedeniyle radyoaktiftir."
+        ],
+        en: [
+          "Octopuses have 3 hearts and blue blood.",
+          "The Eiffel Tower grows ~15cm in summer heat.",
+          "Bananas are radioactive due to potassium-40."
+        ]
+      },
+      fortune: {
+        tr: [
+          "Yakında çok özlediğin biri senden haber verecek.",
+          "Uzun zamandır beklediğin bir şey yolda.",
+          "Küçük bir sürpriz modunu değiştirecek."
+        ],
+        en: [
+          "You will hear from someone you miss very soon.",
+          "Something you've been waiting for is on its way.",
+          "A small surprise will shift your mood today."
+        ]
+      },
+      song: [
+        "Tame Impala - The Less I Know The Better",
+        "The Weeknd - Out of Time",
+        "Arctic Monkeys - Do I Wanna Know?",
+        "Billie Eilish - When the Party's Over",
+        "Bon Iver - Holocene",
+        "Kaleo - Way Down We Go"
+      ]
+    };
+
+    const translations = {
+      en: {
+        title: "What's In Your Day?",
+        subtitle: "Click a button below and get a surprise tailored to your day!",
+        watch: "🎬 What to Watch",
+        say: "💬 Need Motivation?",
+        brain: "🧠 Brain Teaser",
+        learn: "📖 What to Learn",
+        fortune: "🔮 Your Daily Fortune",
+        song: "🎵 New Song"
+      },
+      tr: {
+        title: "Bugün Gününde Ne Var?",
+        subtitle: "Aşağıdaki butonlardan birine tıkla ve gününe özel bir sürpriz yakala!",
+        watch: "🎬 Ne İzlesem",
+        say: "💬 Motivasyona mı ihtiyacın var?",
+        brain: "🧠 Zihin Oyunu",
+        learn: "📖 Ne Öğrensem",
+        fortune: "🔮 Günlük Kehanet",
+        song: "🎵 Yeni Şarkı"
+      }
+    };
+
+    function setLanguage(lang) {
+      document.getElementById('title').innerText = translations[lang].title;
+      document.getElementById('subtitle').innerText = translations[lang].subtitle;
+      document.getElementById('btn-watch').innerText = translations[lang].watch;
+      document.getElementById('btn-say').innerText = translations[lang].say;
+      document.getElementById('btn-brain').innerText = translations[lang].brain;
+      document.getElementById('btn-learn').innerText = translations[lang].learn;
+      document.getElementById('btn-fortune').innerText = translations[lang].fortune;
+      document.getElementById('btn-song').innerText = translations[lang].song;
+    }
+
+    function showRandom(type) {
+      const lang = document.getElementById('btn-watch').innerText.includes('Ne') ? 'tr' : 'en';
+      const arr = typeof content[type] === 'object' && !Array.isArray(content[type]) ? content[type][lang] : content[type];
+      const pick = arr[Math.floor(Math.random() * arr.length)];
+      document.getElementById('output').innerText = pick;
+    }
+  </script>
+</body>
+</html>
