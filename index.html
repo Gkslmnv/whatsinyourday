@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What's In Your Day?</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    button {
+      padding: 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #555;
+    }
+    .output {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <h1>What's In Your Day?</h1>
+  <div class="button-grid">
+    <button onclick="showRandom('watch')">🎬 What to Watch</button>
+    <button onclick="showRandom('say')">💬 What to Say</button>
+    <button onclick="showRandom('brain')">🧠 Brain Teaser</button>
+    <button onclick="showRandom('learn')">📖 What to Learn</button>
+    <button onclick="showRandom('fortune')">🔮 Your Daily Fortune</button>
+  </div>
+  <div class="output" id="output"></div>
+
+  <script>
+    const content = {
+      watch: [
+        "The Platform (Netflix) - A social horror with layers.",
+        "Severance (Apple TV) - Sci-fi meets corporate satire.",
+        "Peaky Blinders (Netflix) - Gangsters with style.",
+      ],
+      say: [
+        "'I’m not ignoring you, I’m just overwhelmed.'",
+        "'Sorry doesn't fix everything, but it’s a start.'",
+        "'Can we just pretend this never happened…?'",
+      ],
+      brain: [
+        "A man walks into a bar and orders a drink. He leaves and dies. Why?",
+        "You see a boat filled with people, but there isn’t a single person on board. How?",
+        "Which is heavier: 1kg of steel or 1kg of feathers?",
+      ],
+      learn: [
+        "Octopuses have 3 hearts and blue blood.",
+        "The Eiffel Tower grows ~15cm in summer heat.",
+        "Bananas are radioactive due to potassium-40.",
+      ],
+      fortune: [
+        "You will hear from someone you miss very soon.",
+        "Something you've been waiting for is on its way.",
+        "A small surprise will shift your mood today.",
+      ]
+    };
+
+    function showRandom(type) {
+      const arr = content[type];
+      const pick = arr[Math.floor(Math.random() * arr.length)];
+      document.getElementById('output').innerText = pick;
+    }
+  </script>
+</body>
+</html>
